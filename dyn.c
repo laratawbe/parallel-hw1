@@ -13,27 +13,27 @@ struct complex {
 };
 
 int cal_pixel(struct complex c) {
-    double z_real = 0;
-    double z_imag = 0;
+    
 
-    double z_real2, z_imag2, lengthsq;
+            double z_real = 0;
+            double z_imag = 0;
 
-    int iter = 0;
-    while (iter < MAX_ITER) {
-        z_real2 = z_real * z_real;
-        z_imag2 = z_imag * z_imag;
+            double z_real2, z_imag2, lengthsq;
 
-        z_imag = 2 * z_real * z_imag + c.imag;
-        z_real = z_real2 - z_imag2 + c.real;
-        lengthsq =  z_real2 + z_imag2;
-        iter++;
+            int iter = 0;
+            do {
+                z_real2 = z_real * z_real;
+                z_imag2 = z_imag * z_imag;
 
-        if (lengthsq >= 4.0) {
-            break;
-        }
-    }
+                z_imag = 2 * z_real * z_imag + c.imag;
+                z_real = z_real2 - z_imag2 + c.real;
+                lengthsq =  z_real2 + z_imag2;
+                iter++;
+            }
+            while ((iter < MAX_ITER) && (lengthsq < 4.0));
 
-    return iter;
+            return iter;
+
 }
 
 void save_pgm(const char *filename, int image[HEIGHT][WIDTH]) {
